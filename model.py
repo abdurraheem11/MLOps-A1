@@ -5,6 +5,7 @@ import tensorflow as tf
 from sklearn.model_selection import train_test_split
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
+from sklearn.preprocessing import LabelEncoder
 
 # %%
 
@@ -47,8 +48,11 @@ model = tf.keras.models.Sequential([
 
 
 # %%
+# ...
 model.compile(loss='sparse_categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
-model.fit(train_data, train_labels, epochs=10, batch_size=32)
+model.fit(train_data, train_labels, epochs=3, batch_size=128)
+
+# ...
 
 # %%
 loss, accuracy = model.evaluate(test_data, test_labels)
