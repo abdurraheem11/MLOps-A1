@@ -4,10 +4,10 @@ name: Train and Test Model
 on:
   push:
     branches:
-      - Raheem
+      - main
   pull_request:
     branches:
-      - Raheem
+      - main
 
 jobs:
   build:
