@@ -2,5 +2,6 @@ pandas
 numpy
 pytest
 tensorflow
+flask
 scikit-learn
 
