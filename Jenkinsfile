@@ -2,7 +2,7 @@ pipeline {
     environment {
         registryCredential = 'dockerhub-id'
         IMAGE_NAME = 'abdurraheemqureshi/mlops-a1'
-        TAG = 'latest' 
+        TAG = 'latest'
     }
     agent any
     stages {
@@ -32,7 +32,7 @@ pipeline {
         success {
             emailext(
                 to: 'i200917@nu.edu.pk',
-                subject: 'Build Successful ',
+                subject: 'Build Successful',
                 body: 'The docker image successfully pushed to Dockerhub! Well Done!'
             )
         }
