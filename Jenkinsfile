@@ -6,7 +6,7 @@ pipeline {
     }
     agent any
     stages {
-        stage('Cloning Git Repository') {
+        stage('Cloninggs Git Repository') {
             steps {
                 git branch: 'master', url: 'https://github.com/abdurraheem11/mlops-a1.git'
             }
