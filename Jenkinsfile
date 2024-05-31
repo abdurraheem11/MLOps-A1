@@ -1,14 +1,10 @@
 pipeline {
-    agent {
-        docker { 
-            image 'docker:latest' 
-            args '-v /var/run/docker.sock:/var/run/docker.sock' 
-        }
-    }
+    agent any
     environment {
         registryCredential = 'dockerhub-id'
         IMAGE_NAME = 'abdurraheemqureshi/mlops-a1'
         TAG = 'latest'
+        DOCKER_PATH = '/usr/local/bin'
     }
     stages {
         stage('Cloning Git Repository') {
@@ -16,10 +12,15 @@ pipeline {
                 git branch: 'master', url: 'https://github.com/abdurraheem11/mlops-a1.git'
             }
         }
+        stage('Check Docker Version') {
+            steps {
+                sh 'export PATH=$DOCKER_PATH:$PATH && docker --version'
+            }
+        }
         stage('Building our image') {
             steps {
                 script {
-                    docker.build("${IMAGE_NAME}:${TAG}")
+                    sh 'export PATH=$DOCKER_PATH:$PATH && docker build -t ${IMAGE_NAME}:${TAG} .'
                 }
             }
         }
@@ -27,7 +28,7 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('', registryCredential) {
-                        docker.image("${IMAGE_NAME}:${TAG}").push()
+                        sh 'export PATH=$DOCKER_PATH:$PATH && docker push ${IMAGE_NAME}:${TAG}'
                     }
                 }
             }
@@ -43,4 +44,3 @@ pipeline {
         }
     }
 }
-
